@@ -1,0 +1,388 @@
+/**
+ * TEMPLATE: Trigger Node
+ *
+ * Template pour créer des nœuds de déclencheur (webhook, schedule, event, etc.)
+ *
+ * UTILISATION:
+ * 1. Copier ce fichier
+ * 2. Remplacer {{NODE_NAME}} par le nom du nœud
+ * 3. Remplacer {{TRIGGER_TYPE}} par le type de trigger
+ * 4. Implémenter la logique de déclenchement
+ */
+
+import { BaseNode } from '../base/BaseNode';
+import { ExecutionContext, NodeExecutionResult } from '../../types';
+
+/**
+ * Configuration de trigger
+ */
+export interface {{NODE_NAME}}Config {
+  // Type de trigger
+  triggerType?: 'webhook' | 'schedule' | 'event' | 'polling';
+
+  // Configuration Webhook
+  webhookPath?: string;
+  webhookMethod?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  responseCode?: number;
+  responseBody?: string;
+
+  // Configuration Schedule
+  cronExpression?: string;
+  interval?: number; // en secondes
+  timezone?: string;
+
+  // Configuration Event
+  eventType?: string;
+  eventFilter?: Record<string, any>;
+
+  // Configuration Polling
+  pollInterval?: number; // en millisecondes
+  pollUrl?: string;
+  pollMethod?: 'GET' | 'POST';
+
+  // Options
+  repeat?: boolean; // Pour répéter le trigger
+  maxRuns?: number; // Nombre max d'exécutions
+  waitForCompletion?: boolean; // Attendre la fin avant prochain trigger
+}
+
+/**
+ * État du trigger
+ */
+interface TriggerState {
+  runs: number;
+  lastTriggerTime?: Date;
+  nextTriggerTime?: Date;
+  isActive: boolean;
+}
+
+/**
+ * Nœud de trigger {{TRIGGER_TYPE}}
+ */
+export class {{NODE_NAME}} extends BaseNode {
+  private config: {{NODE_NAME}}Config;
+  private state: TriggerState;
+  private timer?: NodeJS.Timeout;
+  private webhookHandler?: any;
+
+  constructor(id: string, name: string, config: {{NODE_NAME}}Config) {
+    super(id, name, config);
+    this.config = config;
+    this.state = {
+      runs: 0,
+      isActive: false,
+    };
+  }
+
+  /**
+   * Point d'entrée principal
+   * NOTE: Pour les triggers, execute() démarre le mécanisme de trigger
+   */
+  async execute(context: ExecutionContext): Promise<NodeExecutionResult> {
+    try {
+      const triggerType = this.config.triggerType || 'webhook';
+
+      switch (triggerType) {
+        case 'webhook':
+          return await this.setupWebhook(context);
+        case 'schedule':
+          return await this.setupSchedule(context);
+        case 'event':
+          return await this.setupEventListener(context);
+        case 'polling':
+          return await this.setupPolling(context);
+        default:
+          throw new Error(`Unknown trigger type: ${triggerType}`);
+      }
+    } catch (error: any) {
+      return {
+        success: false,
+        error: `Trigger setup failed: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Configurer un trigger Webhook
+   * TODO: Implémenter l'enregistrement du webhook
+   */
+  private async setupWebhook(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const webhookPath = this.config.webhookPath || `/webhook/${this.id}`;
+    const method = this.config.webhookMethod || 'POST';
+
+    // TODO: Enregistrer le webhook auprès du serveur
+    // Exemple avec Express:
+    // app[method](webhookPath, async (req, res) => {
+    //   const result = await this.handleWebhookRequest(req, res);
+    // });
+
+    return {
+      success: true,
+      data: {
+        _trigger: 'webhook',
+        _webhookPath: webhookPath,
+        _method: method,
+        _message: 'Webhook registered successfully',
+        _usage: `Send ${method} request to ${webhookPath}`,
+      },
+    };
+  }
+
+  /**
+   * Gérer une requête webhook entrante
+   * TODO: Implémenter selon les besoins
+   */
+  private async handleWebhookRequest(req: any, res: any): Promise<NodeExecutionResult> {
+    const webhookData = {
+      body: req.body,
+      headers: req.headers,
+      query: req.query,
+      method: req.method,
+      path: req.path,
+    };
+
+    // Répondre immédiatement si configuré
+    if (this.config.responseCode) {
+      res.status(this.config.responseCode);
+      if (this.config.responseBody) {
+        res.send(this.config.responseBody);
+      } else {
+        res.send('OK');
+      }
+    }
+
+    // Créer le contexte pour les nœuds suivants
+    const context: ExecutionContext = {
+      $json: webhookData,
+      $workflow: {
+        id: context.$workflow?.id || 'unknown',
+        name: context.$workflow?.name || 'Webhook Workflow',
+        active: true,
+      },
+      $node: {
+        id: this.id,
+        name: this.name,
+        type: this.getType(),
+      },
+    };
+
+    this.state.runs++;
+    this.state.lastTriggerTime = new Date();
+
+    return {
+      success: true,
+      data: webhookData,
+    };
+  }
+
+  /**
+   * Configurer un trigger Schedule (Cron)
+   * TODO: Implémenter avec une librairie cron
+   */
+  private async setupSchedule(context: ExecutionContext): Promise<NodeExecutionResult> {
+    if (this.config.cronExpression) {
+      return await this.setupCronSchedule();
+    }
+
+    if (this.config.interval) {
+      return await this.setupIntervalSchedule();
+    }
+
+    throw new Error('Either cronExpression or interval must be provided');
+  }
+
+  /**
+   * Configurer un schedule avec expression Cron
+   * TODO: Utiliser node-cron ou similaire
+   */
+  private async setupCronSchedule(): Promise<NodeExecutionResult> {
+    // TODO: Implémenter avec node-cron
+    // const cron = require('node-cron');
+    // this.timer = cron.schedule(this.config.cronExpression!, async () => {
+    //   await this.executeScheduledTrigger();
+    // }, { timezone: this.config.timezone });
+
+    return {
+      success: true,
+      data: {
+        _trigger: 'cron',
+        _cronExpression: this.config.cronExpression,
+        _timezone: this.config.timezone,
+        _message: 'Cron schedule configured',
+      },
+    };
+  }
+
+  /**
+   * Configurer un schedule par intervalle
+   */
+  private async setupIntervalSchedule(): Promise<NodeExecutionResult> {
+    const intervalMs = (this.config.interval || 60) * 1000;
+
+    this.timer = setInterval(async () => {
+      await this.executeScheduledTrigger();
+    }, intervalMs);
+
+    return {
+      success: true,
+      data: {
+        _trigger: 'interval',
+        _interval: this.config.interval,
+        _intervalMs: intervalMs,
+        _message: 'Interval schedule configured',
+      },
+    };
+  }
+
+  /**
+   * Exécuter le trigger schedule
+   */
+  private async executeScheduledTrigger(): Promise<void> {
+    if (this.state.isActive && this.config.waitForCompletion) {
+      return; // Attendre que la précédente exécution finisse
+    }
+
+    if (this.config.maxRuns && this.state.runs >= this.config.maxRuns) {
+      this.stopTrigger();
+      return;
+    }
+
+    this.state.isActive = true;
+    this.state.runs++;
+    this.state.lastTriggerTime = new Date();
+
+    try {
+      // TODO: Déclencher le workflow
+      // workflowEngine.executeWorkflow(workflowId, context);
+    } finally {
+      this.state.isActive = false;
+    }
+  }
+
+  /**
+   * Configurer un écouteur d'événements
+   * TODO: Implémenter selon le type d'événement
+   */
+  private async setupEventListener(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const eventType = this.config.eventType;
+
+    // TODO: S'abonner aux événements
+    // Exemples:
+    // - EventEmitter pour événements internes
+    // - Redis Pub/Sub pour événements distribués
+    // - Kafka consumer pour événements streaming
+
+    return {
+      success: true,
+      data: {
+        _trigger: 'event',
+        _eventType: eventType,
+        _message: 'Event listener configured',
+      },
+    };
+  }
+
+  /**
+   * Configurer un polling
+   * TODO: Implémenter le polling d'un endpoint
+   */
+  private async setupPolling(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const pollInterval = this.config.pollInterval || 60000; // 1 min par défaut
+
+    this.timer = setInterval(async () => {
+      await this.executePolling();
+    }, pollInterval);
+
+    return {
+      success: true,
+      data: {
+        _trigger: 'polling',
+        _pollInterval: pollInterval,
+        _pollUrl: this.config.pollUrl,
+        _message: 'Polling configured',
+      },
+    };
+  }
+
+  /**
+   * Exécuter le polling
+   * TODO: Implémenter la requête HTTP
+   */
+  private async executePolling(): Promise<NodeExecutionResult> {
+    try {
+      // TODO: Faire la requête HTTP
+      // const response = await axios({
+      //   method: this.config.pollMethod || 'GET',
+      //   url: this.config.pollUrl,
+      // });
+
+      return {
+        success: true,
+        data: {
+          _trigger: 'polling',
+          _timestamp: new Date().toISOString(),
+        },
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: `Polling failed: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Arrêter le trigger
+   */
+  stopTrigger(): void {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = undefined;
+    }
+
+    // TODO: Désenregistrer le webhook
+    if (this.webhookHandler) {
+      // Supprimer le handler webhook
+      this.webhookHandler = undefined;
+    }
+
+    this.state.isActive = false;
+  }
+
+  /**
+   * Obtenir l'état actuel du trigger
+   */
+  getState(): TriggerState {
+    return { ...this.state };
+  }
+
+  /**
+   * Type du nœud
+   */
+  getType(): string {
+    return '{{NODE_TYPE}}'; // TODO: ex: 'webhook', 'cron', 'schedule'
+  }
+
+  /**
+   * Icône du nœud
+   */
+  getIcon(): string {
+    return '{{ICON_NAME}}'; // TODO: ex: 'Webhook', 'Clock', 'Bell'
+  }
+
+  /**
+   * Nettoyage lors de la suppression du nœud
+   */
+  onDestroy(): void {
+    this.stopTrigger();
+  }
+}
+
+/**
+ * TODO: Ajouter ici des fonctionnalités spécifiques:
+ * - Authentification webhooks (signature HMAC)
+ * - Retry logic pour polling
+ * - Dead letter queue pour événements échoués
+ * - Métriques de trigger (nombre de déclenchements, etc.)
+ * - Webhook verification (pour services externes)
+ */

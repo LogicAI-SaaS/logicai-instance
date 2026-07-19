@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Environnement (ne jamais committer de secrets)
+.env
+.env.local
+.env.production
+.env.development
+!.env.example
+
+# Logs & données runtime
+*.log
+data/*
+!data/.gitkeep
+
+# Outils locaux
+.claude/
+.DS_Store
+Thumbs.db

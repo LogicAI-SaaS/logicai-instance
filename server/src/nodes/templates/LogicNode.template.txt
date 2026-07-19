@@ -1,0 +1,421 @@
+/**
+ * TEMPLATE: Logic/Transformation Node
+ *
+ * Template pour créer des nœuds de logique et transformation de données
+ *
+ * UTILISATION:
+ * 1. Copier ce fichier
+ * 2. Remplacer {{NODE_NAME}} par le nom du nœud
+ * 3. Remplacer {{LOGIC_TYPE}} par le type de logique
+ * 4. Implémenter la logique de transformation
+ */
+
+import { BaseNode } from '../base/BaseNode';
+import { ExecutionContext, NodeExecutionResult } from '../../types';
+
+/**
+ * Configuration de nœud logique
+ */
+export interface {{NODE_NAME}}Config {
+  // Mode de fonctionnement
+  mode?: string;
+
+  // Condition (pour switch/filter/if)
+  condition?: string;
+  field?: string;
+  operator?: string;
+  value?: any;
+
+  // Transformation (pour set, map, transform)
+  mappings?: Record<string, string>;
+  renameKeys?: Record<string, string>;
+  fields?: Record<string, any>;
+
+  // Code personnalisé
+  code?: string;
+  language?: 'javascript' | 'python';
+
+  // Options
+  disableDotNotation?: boolean;
+  outputFormat?: 'array' | 'object' | 'string';
+}
+
+/**
+ * Nœud de logique {{LOGIC_TYPE}}
+ */
+export class {{NODE_NAME}} extends BaseNode {
+  private config: {{NODE_NAME}}Config;
+
+  constructor(id: string, name: string, config: {{NODE_NAME}}Config) {
+    super(id, name, config);
+    this.config = config;
+  }
+
+  /**
+   * Point d'entrée principal
+   */
+  async execute(context: ExecutionContext): Promise<NodeExecutionResult> {
+    try {
+      const inputData = context.$json;
+
+      // Traitement différent selon le mode
+      const mode = this.config.mode || 'default';
+
+      let outputData: any;
+
+      switch (mode) {
+        case 'filter':
+          outputData = this.filterData(inputData);
+          break;
+        case 'transform':
+          outputData = this.transformData(inputData);
+          break;
+        case 'map':
+          outputData = this.mapData(inputData);
+          break;
+        case 'validate':
+          outputData = this.validateData(inputData);
+          break;
+        case 'code':
+          outputData = await this.executeCode(inputData, context);
+          break;
+        default:
+          outputData = this.defaultLogic(inputData);
+      }
+
+      return {
+        success: true,
+        data: outputData,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: `Logic execution failed: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Filtrer les données selon une condition
+   * TODO: Adapter selon les besoins
+   */
+  private filterData(data: any): any {
+    const field = this.config.field;
+    const operator = this.config.operator || '==';
+    const value = this.config.value;
+
+    // Si data est un tableau, filtrer les éléments
+    if (Array.isArray(data)) {
+      return data.filter((item) => this.evaluateCondition(item, field, operator, value));
+    }
+
+    // Si data est un objet, retourner ou non selon la condition
+    if (this.evaluateCondition(data, field, operator, value)) {
+      return data;
+    }
+
+    return null;
+  }
+
+  /**
+   * Évaluer une condition
+   */
+  private evaluateCondition(
+    item: any,
+    field: string | undefined,
+    operator: string,
+    value: any
+  ): boolean {
+    const itemValue = field ? this.getNestedValue(item, field) : item;
+
+    switch (operator) {
+      case '==':
+      case 'equals':
+        return itemValue == value;
+      case '===':
+      case 'strictEquals':
+        return itemValue === value;
+      case '!=':
+      case 'notEquals':
+        return itemValue != value;
+      case '!==':
+        return itemValue !== value;
+      case '>':
+      case 'greaterThan':
+        return itemValue > value;
+      case '<':
+      case 'lessThan':
+        return itemValue < value;
+      case '>=':
+        return itemValue >= value;
+      case '<=':
+        return itemValue <= value;
+      case 'contains':
+        return typeof itemValue === 'string' && itemValue.includes(value);
+      case 'startsWith':
+        return typeof itemValue === 'string' && itemValue.startsWith(value);
+      case 'endsWith':
+        return typeof itemValue === 'string' && itemValue.endsWith(value);
+      case 'matches':
+        return new RegExp(value).test(String(itemValue));
+      case 'exists':
+        return itemValue !== undefined && itemValue !== null;
+      case 'isEmpty':
+        return !itemValue || itemValue.length === 0;
+      default:
+        throw new Error(`Unknown operator: ${operator}`);
+    }
+  }
+
+  /**
+   * Transformer les données
+   * TODO: Implémenter les transformations nécessaires
+   */
+  private transformData(data: any): any {
+    let result = data;
+
+    // Renommer les clés
+    if (this.config.renameKeys) {
+      result = this.renameKeysInObject(result, this.config.renameKeys);
+    }
+
+    // Appliquer les mappings
+    if (this.config.mappings) {
+      result = this.applyMappings(result, this.config.mappings);
+    }
+
+    // Définir/écraser des champs
+    if (this.config.fields) {
+      result = { ...result, ...this.config.fields };
+    }
+
+    return result;
+  }
+
+  /**
+   * Renommer les clés d'un objet
+   */
+  private renameKeysInObject(
+    obj: any,
+    keyMapping: Record<string, string>
+  ): any {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.renameKeysInObject(item, keyMapping));
+    }
+
+    if (typeof obj === 'object' && obj !== null) {
+      const renamed: any = {};
+      for (const [key, value] of Object.entries(obj)) {
+        const newKey = keyMapping[key] || key;
+        renamed[newKey] = value;
+      }
+      return renamed;
+    }
+
+    return obj;
+  }
+
+  /**
+   * Appliquer des transformations de valeurs
+   */
+  private applyMappings(data: any, mappings: Record<string, string>): any {
+    const result = Array.isArray(data) ? [...data] : { ...data };
+
+    for (const [field, mapping] of Object.entries(mappings)) {
+      const value = this.getNestedValue(result, field);
+      if (value !== undefined) {
+        const transformedValue = this.applyMapping(value, mapping);
+        this.setNestedValue(result, field, transformedValue);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Appliquer une transformation à une valeur
+   */
+  private applyMapping(value: any, mapping: string): any {
+    // Fonctions de transformation intégrées
+    const functions: Record<string, (val: any) => any> = {
+      upper: (val) => String(val).toUpperCase(),
+      lower: (val) => String(val).toLowerCase(),
+      trim: (val) => String(val).trim(),
+      split: (val) => String(val).split(','),
+      join: (val) => Array.isArray(val) ? val.join(',') : val,
+      toNumber: (val) => Number(val),
+      toString: (val) => String(val),
+      toJson: (val) => JSON.stringify(val),
+      parseJson: (val) => JSON.parse(val),
+      base64Encode: (val) => Buffer.from(String(val)).toString('base64'),
+      base64Decode: (val) => Buffer.from(String(val), 'base64').toString('utf-8'),
+      date: (val) => new Date(val).toISOString(),
+      timestamp: () => Date.now(),
+    };
+
+    // Extraire le nom de fonction et les arguments
+    const match = mapping.match(/^(\w+)(?:\((.*)\))?$/);
+    if (match) {
+      const [, funcName, args] = match;
+      const func = functions[funcName];
+      if (func) {
+        return func(value);
+      }
+    }
+
+    // Mapping par défaut: retourner la valeur telle quelle
+    return mapping === '{{value}}' ? value : mapping;
+  }
+
+  /**
+   * Mapper les données (transformation d'array)
+   */
+  private mapData(data: any): any {
+    if (!Array.isArray(data)) {
+      // Si pas un array, retourner l'objet transformé
+      return this.transformData(data);
+    }
+
+    return data.map((item) => this.transformData(item));
+  }
+
+  /**
+   * Valider les données
+   * TODO: Implémenter la logique de validation
+   */
+  private validateData(data: any): any {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+
+    // Validation basique
+    if (this.config.fields) {
+      for (const [field, rules] of Object.entries(this.config.fields)) {
+        const value = this.getNestedValue(data, field);
+
+        // Vérifier les required
+        if (rules === 'required' && (value === undefined || value === null)) {
+          errors.push(`Required field missing: ${field}`);
+        }
+
+        // Vérifier les types
+        if (typeof rules === 'string' && rules.startsWith('type:')) {
+          const expectedType = rules.split(':')[1];
+          if (typeof value !== expectedType) {
+            errors.push(`Field ${field} should be ${expectedType}, got ${typeof value}`);
+          }
+        }
+      }
+    }
+
+    return {
+      valid: errors.length === 0,
+      data,
+      errors,
+      warnings,
+    };
+  }
+
+  /**
+   * Exécuter du code personnalisé
+   * TODO: Implémenter avec sandbox sécurisé
+   */
+  private async executeCode(
+    data: any,
+    context: ExecutionContext
+  ): Promise<any> {
+    const code = this.config.code;
+    const language = this.config.language || 'javascript';
+
+    if (!code) {
+      throw new Error('No code provided');
+    }
+
+    try {
+      if (language === 'javascript') {
+        return await this.executeJavaScript(code, data, context);
+      } else if (language === 'python') {
+        return await this.executePython(code, data, context);
+      } else {
+        throw new Error(`Unsupported language: ${language}`);
+      }
+    } catch (error: any) {
+      throw new Error(`Code execution failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Exécuter du code JavaScript
+   * TODO: Implémenter avec vm2 ou similaire pour la sécurité
+   */
+  private async executeJavaScript(
+    code: string,
+    data: any,
+    context: ExecutionContext
+  ): Promise<any> {
+    // TODO: Utiliser vm2 pour un sandbox sécurisé
+    // const { VM } = require('vm2');
+    // const vm = new VM({
+    //   sandbox: { data, context, input: data },
+    //   timeout: 5000,
+    // });
+    // return vm.run(code);
+
+    // Placeholder: eval non-sécurisé (NE PAS UTILISER EN PRODUCTION)
+    const fn = new Function('data', 'context', 'input', code);
+    return fn(data, context, data);
+  }
+
+  /**
+   * Exécuter du code Python
+   * TODO: Implémenter avec python-shell
+   */
+  private async executePython(
+    code: string,
+    data: any,
+    context: ExecutionContext
+  ): Promise<any> {
+    // TODO: Implémenter avec python-shell
+    // const { PythonShell } = require('python-shell');
+    // const pyshell = new PythonShell('script.py', {
+    //   mode: 'text',
+    //   pythonPath: 'python3',
+    // });
+    // const result = await pyshell.end();
+
+    throw new Error('Python execution not yet implemented');
+  }
+
+  /**
+   * Logique par défaut
+   * TODO: Implémenter selon les besoins
+   */
+  private defaultLogic(data: any): any {
+    // Logique par défaut: retourner les données telles quelles
+    return data;
+  }
+
+  /**
+   * Type du nœud
+   */
+  getType(): string {
+    return '{{NODE_TYPE}}'; // TODO: ex: 'filter', 'switch', 'set'
+  }
+
+  /**
+   * Icône du nœud
+   */
+  getIcon(): string {
+    return '{{ICON_NAME}}'; // TODO: ex: 'Filter', 'GitBranch', 'Edit'
+  }
+}
+
+/**
+ * TODO: Ajouter ici des fonctionnalités spécifiques:
+ * - Fonctions de transformation avancées (regex, date parsing, etc.)
+ * - Validation avec schéma JSON
+ * - Agrégations (group by, sum, count, etc.)
+ * - Tri (sort)
+ * - Limit/Skip
+ * - Deduplication
+ * - Merge/Join de données
+ */

@@ -1,0 +1,1494 @@
+{
+  "timestamp": "2026-02-02T23:25:36.103Z",
+  "totalNodes": 74,
+  "summary": {
+    "mockImplementations": 27,
+    "withErrorHandling": 58,
+    "withTests": 0,
+    "averageQualityScore": 57.16216216216216,
+    "byPriority": {
+      "critical": 6,
+      "high": 24,
+      "medium": 14,
+      "low": 30
+    }
+  },
+  "nodes": [
+    {
+      "nodeId": "AggregatorMultiSearchNode",
+      "fileName": "AggregatorMultiSearchNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "AIAgentNode",
+      "fileName": "AIAgentNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "AICostGuardianNode",
+      "fileName": "AICostGuardianNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 90,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "AirtableNode",
+      "fileName": "AirtableNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "AndroidEcosystemNode",
+      "fileName": "AndroidEcosystemNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "AndroidMessagesNode",
+      "fileName": "AndroidNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "AppleEcosystemNode",
+      "fileName": "AppleEcosystemNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "IMessageNode",
+      "fileName": "AppleNodes",
+      "hasRealImplementation": true,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 50,
+      "priority": "low",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ChatTriggerNode",
+      "fileName": "ChatTriggerNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 15,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ClickTriggerNode",
+      "fileName": "ClickTriggerNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 15,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "CodeNode",
+      "fileName": "CodeNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation",
+        "Using console.log instead of proper logger"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "CompressionNode",
+      "fileName": "CompressionNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ConditionNode",
+      "fileName": "ConditionNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 45,
+      "priority": "high",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "CronTriggerNode",
+      "fileName": "CronTriggerNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 55,
+      "priority": "low",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "CryptoNode",
+      "fileName": "CryptoNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "DiscordNode",
+      "fileName": "DiscordNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "EditFieldsNode",
+      "fileName": "EditFieldsNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 90,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "EmailNode",
+      "fileName": "EmailNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "EmailTriggerNode",
+      "fileName": "EmailTriggerNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 15,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "EmbeddingsNode",
+      "fileName": "EmbeddingsNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ErrorTriggerNode",
+      "fileName": "ErrorTriggerNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 45,
+      "priority": "high",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ExecuteWorkflowNode",
+      "fileName": "ExecuteWorkflowNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation",
+        "Using console.log instead of proper logger"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "FacebookPostNode",
+      "fileName": "FacebookNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "FigmaNode",
+      "fileName": "FigmaNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 85,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "FilterNode",
+      "fileName": "FilterNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "FormTriggerNode",
+      "fileName": "FormTriggerNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 85,
+      "priority": "low",
+      "issues": [],
+      "suggestions": [
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "FTPNode",
+      "fileName": "FTPNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "GhostNode",
+      "fileName": "GhostNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 100,
+      "priority": "low",
+      "issues": [
+        "Contains mock/stub implementation"
+      ],
+      "suggestions": [
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "GitHubNode",
+      "fileName": "GitHubNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "GoogleDriveNode",
+      "fileName": "GoogleDriveNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "GoogleSheetsNode",
+      "fileName": "GoogleSheetsNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "HTMLExtractNode",
+      "fileName": "HTMLExtractNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 90,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "HTTPPollTriggerNode",
+      "fileName": "HTTPPollTriggerNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 25,
+      "priority": "critical",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "HttpRequestNode",
+      "fileName": "HttpRequestNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 50,
+      "priority": "critical",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "HumanInTheLoopNode",
+      "fileName": "HumanInTheLoopNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 45,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation",
+        "Using console.log instead of proper logger"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "InfrastructureNode",
+      "fileName": "InfrastructureNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "InstagramPostNode",
+      "fileName": "InstagramNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "LimitNode",
+      "fileName": "LimitNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "LinkedInPostNode",
+      "fileName": "LinkedInNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "LiveCanvasDebuggerNode",
+      "fileName": "LiveCanvasDebuggerNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "MergeNode",
+      "fileName": "MergeNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 90,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "MongoDBNode",
+      "fileName": "MongoDBNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "critical",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "MySQLNode",
+      "fileName": "MySQLNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "NoCodeBrowserAutomatorNode",
+      "fileName": "NoCodeBrowserAutomatorNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "NotionNode",
+      "fileName": "NotionNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "OnSuccessFailureNode",
+      "fileName": "OnSuccessFailureNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 50,
+      "priority": "high",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "OpenAINode",
+      "fileName": "OpenAINode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "critical",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "RateLimiterBypassNode",
+      "fileName": "RateLimiterBypassNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 100,
+      "priority": "medium",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation",
+        "Using console.log instead of proper logger"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ReadWriteBinaryFileNode",
+      "fileName": "ReadWriteBinaryFileNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "RedisNode",
+      "fileName": "RedisNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "RSSReadNode",
+      "fileName": "RSSReadNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "ScheduleNode",
+      "fileName": "ScheduleNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 85,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SetVariableNode",
+      "fileName": "SetVariableNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SlackNode",
+      "fileName": "SlackNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "critical",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SmartDataCleanerNode",
+      "fileName": "SmartDataCleanerNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SocialMockupPreviewNode",
+      "fileName": "SocialMockupPreviewNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "TelegramNode",
+      "fileName": "SocialNodes",
+      "hasRealImplementation": true,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 40,
+      "priority": "medium",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SortNode",
+      "fileName": "SortNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SplitInBatchesNode",
+      "fileName": "SplitInBatchesNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "high",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SSHNode",
+      "fileName": "SSHNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "StreamingNode",
+      "fileName": "StreamingNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SupabaseNode",
+      "fileName": "SupabaseNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "SwitchNode",
+      "fileName": "SwitchNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "TelegramNode",
+      "fileName": "TelegramNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "TelegramSendMessageNode",
+      "fileName": "TelegramNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "TikTokUploadVideoNode",
+      "fileName": "TikTokNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "TrelloNode",
+      "fileName": "TrelloNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "TwitterTweetNode",
+      "fileName": "TwitterNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "VectorStoreNode",
+      "fileName": "VectorStoreNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "WaitNode",
+      "fileName": "WaitNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "low",
+      "issues": [
+        "Missing input validation",
+        "Using console.log instead of proper logger"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "WebhookNode",
+      "fileName": "WebhookNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 15,
+      "priority": "critical",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "WhatsAppNode",
+      "fileName": "WhatsAppNode",
+      "hasRealImplementation": true,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 75,
+      "priority": "medium",
+      "issues": [
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "WhatsAppSendMessageNode",
+      "fileName": "WhatsAppNodes",
+      "hasRealImplementation": false,
+      "hasErrorHandling": false,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 0,
+      "priority": "high",
+      "issues": [
+        "Missing error handling",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add try-catch blocks for error handling",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    },
+    {
+      "nodeId": "WindowsControlNode",
+      "fileName": "WindowsControlNode",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 45,
+      "priority": "high",
+      "issues": [
+        "Contains mock/stub implementation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Consider using a validation library (joi/yup/zod)",
+        "Use proper logging instead of console.log"
+      ]
+    }
+  ]
+}

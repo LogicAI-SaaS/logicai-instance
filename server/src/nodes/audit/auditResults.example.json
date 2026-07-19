@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-02-03T00:00:00.000Z",
+  "totalNodes": 75,
+  "summary": {
+    "mockImplementations": 14,
+    "withErrorHandling": 45,
+    "withTests": 0,
+    "averageQualityScore": 58.5,
+    "byPriority": {
+      "critical": 14,
+      "high": 20,
+      "medium": 25,
+      "low": 16
+    }
+  },
+  "nodes": [
+    {
+      "nodeId": "OpenAINode",
+      "fileName": "OpenAINode.ts",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "partial",
+      "dependenciesInstalled": false,
+      "qualityScore": 35,
+      "priority": "critical",
+      "issues": [
+        "Contains mock/stub implementation",
+        "Missing input validation"
+      ],
+      "suggestions": [
+        "Implement real API integration",
+        "Add input validation",
+        "Consider using a validation library (joi/yup/zod)"
+      ]
+    },
+    {
+      "nodeId": "SlackNode",
+      "fileName": "SlackNode.ts",
+      "hasRealImplementation": false,
+      "hasErrorHandling": true,
+      "hasTests": false,
+      "apiIntegrationStatus": "none",
+      "dependenciesInstalled": false,
+      "qualityScore": 30,
+      "priority": "critical",
+      "issues": [
+        "Contains mock/stub implementation"
+      ],
+      "suggestions": [
+        "Implement real API integration"
+      ]
+    }
+  ]
+}

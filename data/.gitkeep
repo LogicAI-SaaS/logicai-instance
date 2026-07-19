@@ -1,0 +1,3 @@
+# Ce dossier contient les données persistantes de l'application
+# - Base de données SQLite (dev.db)
+# - Logs et autres fichiers temporaires

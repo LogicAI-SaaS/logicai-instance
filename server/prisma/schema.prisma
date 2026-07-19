@@ -1,0 +1,118 @@
+// Schema pour isoler les bases de données par instance LogicAI-N8N
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =============
+// User model - Utilisateur avec isolation par instance
+// Chaque instance LogicAI-N8N aura sa propre base de données avec ses propres utilisateurs
+// =============
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  firstName String?
+  lastName  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Workflow model - Définition de workflow
+model Workflow {
+  id             String          @id @default(uuid())
+  name           String
+  description    String?
+  nodes          Json            @default("[]")
+  edges          Json            @default("[]")
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  // Relations
+  nodeExecutions NodeExecution[]
+  executions     Execution[]
+}
+
+// NodeExecution model - Historique d'exécution des nœuds
+model NodeExecution {
+  id          String    @id @default(uuid())
+  workflowId  String
+  nodeId      String
+  nodeName    String?
+  status      String    @default("pending") // pending, running, success, error
+  input       Json?
+  output      Json?
+  error       String?
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  // Relations
+  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+}
+
+// Execution model - Historique d'exécution de workflow
+model Execution {
+  id            String    @id @default(uuid())
+  workflowId    String
+  status        String    @default("running") // running, completed, failed
+  results       Json      @default("[]")
+  executionTime Int       @default(0)
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+
+  // Relations
+  workflow      Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+}
+
+// InstanceMember model - Membres d'une instance LogicAI-N8N
+model InstanceMember {
+  id            String   @id @default(uuid())
+  instanceId    String   // ID de l'instance (lié à INSTANCE_ID env)
+  userId        String   // Référence à un User global ou email externe
+  email         String
+  firstName     String?
+  lastName      String?
+  role          String   @default("viewer") // admin, editor, viewer
+  avatar        String?
+  isOnline      Boolean  @default(false)
+  lastSeen      DateTime?
+  invitedBy    String?  // User ID de qui a invité
+  status        String   @default("active") // active, pending, removed
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([instanceId, userId])
+}
+
+// InstanceInvitation model - Invitations en attente
+model InstanceInvitation {
+  id            String   @id @default(uuid())
+  instanceId    String
+  email         String
+  role          String   @default("viewer")
+  token         String   @unique // Token unique pour l'invitation
+  invitedBy     String?  // User ID ou email
+  expiresAt     DateTime
+  status        String   @default("pending") // pending, accepted, expired, cancelled
+  createdAt     DateTime  @default(now())
+  acceptedAt    DateTime?
+}
+
+// Notification model - Notifications utilisateur (invitations, système)
+model Notification {
+  id         String   @id @default(uuid())
+  userId     String
+  instanceId String
+  type       String   // invitation, system, info
+  title      String
+  body       String?
+  data       String?  // JSON encoded payload
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}

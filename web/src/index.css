@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+/* CSS Custom Properties for Brand Colors */
+:root {
+  /* Brand Colors */
+  --brand-blue: #0070FF;
+  --brand-hover: #0062E0;
+  --brand-accent: #CF703C;
+
+  /* Backgrounds */
+  --brand-background: #0D0D0D;
+  --brand-card: #010101;
+  --brand-modal: #1A1A1A;
+
+  /* Text Colors (oklch) */
+  --brand-text-light: oklch(87.2% .01 258.338);
+  --brand-text-secondary: oklch(70.7% .022 261.325);
+  --brand-text-gray: #868686; /* oklch(55.1% .027 264.364) */
+  --brand-text-dark: oklch(44.6% .03 256.802);
+
+  /* Semantic Colors */
+  --brand-success: #00C853;
+  --brand-danger: #FF3B30;
+  --brand-warning: #FF9500;
+
+  /* Borders */
+  --brand-border: #2A2A2E;
+  --brand-border-hover: #3A3A3E;
+
+  /* Effects */
+  --glow-blue: 0 0 20px rgba(0, 112, 255, 0.3);
+  --glow-accent: 0 0 20px rgba(207, 112, 60, 0.3);
+}
+
+/* EXPLICIT UTILITY CLASSES - Force brand colors with !important */
+.bg-brand-blue {
+  background-color: #0070FF !important;
+}
+
+.bg-brand-hover:hover {
+  background-color: #0062E0 !important;
+}
+
+.hover\:bg-brand-hover:hover {
+  background-color: #0062E0 !important;
+}
+
+.text-brand-blue {
+  color: #0070FF !important;
+}
+
+.border-brand-blue {
+  border-color: #0070FF !important;
+}
+
+/* Brand blue 20% opacity */
+.bg-brand-blue\/10 {
+  background-color: rgba(0, 112, 255, 0.1) !important;
+}
+
+.bg-brand-blue\/20 {
+  background-color: rgba(0, 112, 255, 0.2) !important;
+}
+
+/* Dark mode base styles */
+body {
+  background-color: var(--brand-background);
+  color: var(--brand-text-light);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--brand-card);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-border);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-border-hover);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 112, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 112, 255, 0.5);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s ease-out;
+}
+
+/* Canvas grid pattern */
+.react-flow__background {
+  background-color: var(--brand-card) !important;
+}
+
+/* Improved node styling */
+.react-flow__node {
+  cursor: grab;
+}
+
+.react-flow__node.dragging {
+  cursor: grabbing !important;
+  transition: none !important;
+}
+
+.react-flow__node.dragging * {
+  transition: none !important;
+  pointer-events: none !important;
+}
+
+/* Optimize rendering during drag */
+.react-flow__pane {
+  cursor: default;
+}
+
+.react-flow__pane.dragging {
+  cursor: grabbing !important;
+}
+
+/* Hide ReactFlow attribution */
+.react-flow__attribution {
+  display: none !important;
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px var(--brand-blue), 0 10px 30px rgba(0, 112, 255, 0.3) !important;
+}
+
+/* Edge animations */
+.react-flow__edge-path {
+  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--brand-blue) !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 4px rgba(0, 112, 255, 0.5));
+}
+
+/* Control buttons */
+.react-flow__controls-button {
+  background: var(--brand-card) !important;
+  border: 1px solid var(--brand-border) !important;
+  color: var(--brand-text-secondary) !important;
+  transition: all 0.2s ease !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--brand-blue) !important;
+  border-color: var(--brand-blue) !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+/* Modal backdrop animation */
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-backdrop {
+  animation: backdropFadeIn 0.2s ease-out;
+}

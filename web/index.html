@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LogicAI-N8N</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Configuration de l'API globale injectée au runtime -->
+    <script>
+      window.GLOBAL_API_URL = '%%GLOBAL_API_URL%%' || 'http://localhost:3000';
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  n8n-instance:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: logicai-n8n
+    restart: unless-stopped
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+      - "${WEBSOCKET_PORT:-5679}:5679"
+    environment:
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - CORS_ORIGIN=${CORS_ORIGIN:-*}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./data:/app/data
+    networks:
+      - logicai-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: logicai-n8n-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-n8n}
+      - POSTGRES_USER=${POSTGRES_USER:-n8n}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-n8n_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - logicai-network
+    # Only include if you need PostgreSQL
+    profiles:
+      - with-db
+
+volumes:
+  n8n_data:
+    driver: local
+  postgres_data:
+    driver: local
+
+networks:
+  logicai-network:
+    driver: bridge

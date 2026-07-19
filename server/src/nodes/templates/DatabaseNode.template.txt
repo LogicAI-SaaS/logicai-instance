@@ -1,0 +1,386 @@
+/**
+ * TEMPLATE: Database Connection Node
+ *
+ * Template pour créer des nœuds de connexion base de données
+ *
+ * UTILISATION:
+ * 1. Copier ce fichier
+ * 2. Remplacer {{NODE_NAME}} par le nom du nœud
+ * 3. Remplacer {{DB_TYPE}} par le type de DB (MySQL, PostgreSQL, MongoDB, etc.)
+ * 4. Implémenter les méthodes de connexion et requêtes
+ */
+
+import { BaseNode } from '../base/BaseNode';
+import { ExecutionContext, NodeExecutionResult } from '../../types';
+
+/**
+ * Configuration de connexion base de données
+ */
+export interface {{NODE_NAME}}Config {
+  // Connection
+  host: string;
+  port?: number;
+  database: string;
+  username: string;
+  password: string;
+
+  // Options
+  ssl?: boolean;
+  timeout?: number;
+  connectionString?: string;
+
+  // Operation
+  operation: 'select' | 'insert' | 'update' | 'delete' | 'execute' | 'query';
+
+  // Query
+  query?: string;
+  table?: string;
+  data?: any;
+  where?: Record<string, any>;
+  limit?: number;
+}
+
+/**
+ * Nœud de connexion {{DB_TYPE}}
+ */
+export class {{NODE_NAME}} extends BaseNode {
+  private config: {{NODE_NAME}}Config;
+  private connection: any = null; // TODO: Typage spécifique DB
+
+  constructor(id: string, name: string, config: {{NODE_NAME}}Config) {
+    super(id, name, config);
+    this.config = config;
+  }
+
+  /**
+   * Point d'entrée principal
+   */
+  async execute(context: ExecutionContext): Promise<NodeExecutionResult> {
+    try {
+      // Établir la connexion
+      await this.connect();
+
+      const operation = this.config.operation;
+
+      switch (operation) {
+        case 'select':
+          return await this.executeSelect(context);
+        case 'insert':
+          return await this.executeInsert(context);
+        case 'update':
+          return await this.executeUpdate(context);
+        case 'delete':
+          return await this.executeDelete(context);
+        case 'query':
+          return await this.executeCustomQuery(context);
+        default:
+          throw new Error(`Unknown operation: ${operation}`);
+      }
+    } catch (error: any) {
+      return {
+        success: false,
+        error: this.formatErrorMessage(error),
+      };
+    } finally {
+      // Toujours fermer la connexion
+      await this.disconnect();
+    }
+  }
+
+  /**
+   * Établir la connexion à la base de données
+   * TODO: Implémenter selon le type de DB
+   */
+  private async connect(): Promise<void> {
+    if (this.connection) {
+      return; // Déjà connecté
+    }
+
+    try {
+      // TODO: Remplacer par la vraie logique de connexion
+      // Exemple pour MySQL:
+      // const mysql = require('mysql2/promise');
+      // this.connection = await mysql.createConnection({
+      //   host: this.config.host,
+      //   port: this.config.port || 3306,
+      //   user: this.config.username,
+      //   password: this.config.password,
+      //   database: this.config.database,
+      // });
+
+      throw new Error('TODO: Implement database connection');
+    } catch (error) {
+      throw new Error(`Failed to connect to {{DB_TYPE}}: ${error.message}`);
+    }
+  }
+
+  /**
+   * Fermer la connexion
+   * TODO: Implémenter selon le driver DB
+   */
+  private async disconnect(): Promise<void> {
+    if (this.connection) {
+      try {
+        // TODO: Fermer la connexion
+        // await this.connection.end();
+        this.connection = null;
+      } catch (error) {
+        console.error('Error closing connection:', error);
+      }
+    }
+  }
+
+  /**
+   * Exécuter une requête SELECT
+   * TODO: Implémenter selon le type de DB
+   */
+  private async executeSelect(context: ExecutionContext): Promise<NodeExecutionResult> {
+    let query: string;
+    let params: any[] = [];
+
+    if (this.config.query) {
+      // Requête personnalisée
+      query = this.config.query;
+      params = this.extractParams(query, context);
+    } else {
+      // Génération automatique depuis config
+      const table = this.config.table;
+      const where = this.buildWhereClause(this.config.where);
+
+      query = `SELECT * FROM ${table}${where}`;
+      params = Object.values(this.config.where || {});
+
+      if (this.config.limit) {
+        query += ` LIMIT ${this.config.limit}`;
+      }
+    }
+
+    try {
+      // TODO: Exécuter la requête
+      // const [rows] = await this.connection.execute(query, params);
+
+      const rows = []; // Placeholder
+
+      return {
+        success: true,
+        data: {
+          rows,
+          count: rows.length,
+          _operation: 'select',
+        },
+      };
+    } catch (error: any) {
+      throw new Error(`SELECT query failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Exécuter une requête INSERT
+   * TODO: Implémenter selon le type de DB
+   */
+  private async executeInsert(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const table = this.config.table;
+    const data = this.resolveData(this.config.data, context);
+
+    const columns = Object.keys(data).join(', ');
+    const placeholders = Object.keys(data).map(() => '?').join(', ');
+    const values = Object.values(data);
+
+    const query = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
+
+    try {
+      // TODO: Exécuter l'insert
+      // const [result] = await this.connection.execute(query, values);
+
+      const result = {
+        insertId: 0, // Placeholder
+        affectedRows: 1,
+      };
+
+      return {
+        success: true,
+        data: {
+          _operation: 'insert',
+          insertId: result.insertId,
+          affectedRows: result.affectedRows,
+        },
+      };
+    } catch (error: any) {
+      throw new Error(`INSERT query failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Exécuter une requête UPDATE
+   * TODO: Implémenter selon le type de DB
+   */
+  private async executeUpdate(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const table = this.config.table;
+    const data = this.resolveData(this.config.data, context);
+    const where = this.config.where;
+
+    const setClause = Object.keys(data).map((key) => `${key} = ?`).join(', ');
+    const whereClause = this.buildWhereClause(where);
+    const values = [...Object.values(data), ...Object.values(where)];
+
+    const query = `UPDATE ${table} SET ${setClause}${whereClause}`;
+
+    try {
+      // TODO: Exécuter l'update
+      // const [result] = await this.connection.execute(query, values);
+
+      const result = {
+        affectedRows: 1, // Placeholder
+      };
+
+      return {
+        success: true,
+        data: {
+          _operation: 'update',
+          affectedRows: result.affectedRows,
+        },
+      };
+    } catch (error: any) {
+      throw new Error(`UPDATE query failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Exécuter une requête DELETE
+   * TODO: Implémenter selon le type de DB
+   */
+  private async executeDelete(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const table = this.config.table;
+    const whereClause = this.buildWhereClause(this.config.where);
+    const values = Object.values(this.config.where || {});
+
+    const query = `DELETE FROM ${table}${whereClause}`;
+
+    try {
+      // TODO: Exécuter le delete
+      // const [result] = await this.connection.execute(query, values);
+
+      const result = {
+        affectedRows: 1, // Placeholder
+      };
+
+      return {
+        success: true,
+        data: {
+          _operation: 'delete',
+          affectedRows: result.affectedRows,
+        },
+      };
+    } catch (error: any) {
+      throw new Error(`DELETE query failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Exécuter une requête personnalisée
+   */
+  private async executeCustomQuery(context: ExecutionContext): Promise<NodeExecutionResult> {
+    const query = this.resolveVariables(this.config.query || '', context);
+    const params = this.extractParams(query, context);
+
+    try {
+      // TODO: Exécuter la requête custom
+      // const [rows] = await this.connection.execute(query, params);
+
+      const rows = []; // Placeholder
+
+      return {
+        success: true,
+        data: {
+          rows,
+          _operation: 'custom',
+        },
+      };
+    } catch (error: any) {
+      throw new Error(`Custom query failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Construire une clause WHERE
+   */
+  private buildWhereClause(where: Record<string, any> | undefined): string {
+    if (!where || Object.keys(where).length === 0) {
+      return '';
+    }
+
+    const conditions = Object.keys(where).map((key) => `${key} = ?`);
+    return ` WHERE ${conditions.join(' AND ')}`;
+  }
+
+  /**
+   * Résoudre les données avec variables du contexte
+   */
+  private resolveData(data: any, context: ExecutionContext): any {
+    if (typeof data === 'string') {
+      return this.resolveVariables(data, context);
+    }
+    if (Array.isArray(data)) {
+      return data.map((item) => this.resolveData(item, context));
+    }
+    if (typeof data === 'object' && data !== null) {
+      const resolved: any = {};
+      for (const [key, value] of Object.entries(data)) {
+        resolved[key] = this.resolveData(value, context);
+      }
+      return resolved;
+    }
+    return data;
+  }
+
+  /**
+   * Extraire les paramètres depuis le contexte
+   */
+  private extractParams(query: string, context: ExecutionContext): any[] {
+    // TODO: Implémenter l'extraction de paramètres
+    // depuis context.$json selon les placeholders dans la query
+    return [];
+  }
+
+  /**
+   * Résoudre les variables {{ variable }}
+   */
+  private resolveVariables(text: string, context: ExecutionContext): string {
+    return text.replace(/\{\{(\$json|\$workflow|\$node)\.([\w.]+)\}\}/g, (match, type, path) => {
+      const obj = type === '$json' ? context.$json : type === '$workflow' ? context.$workflow : context.$node;
+      return this.getNestedValue(obj, path) || match;
+    });
+  }
+
+  /**
+   * Formater les messages d'erreur
+   */
+  private formatErrorMessage(error: any): string {
+    if (error.code) {
+      return `${{DB_TYPE}} error [${error.code}]: ${error.message}`;
+    }
+    return error.message || 'Unknown database error';
+  }
+
+  /**
+   * Type du nœud
+   */
+  getType(): string {
+    return '{{NODE_TYPE}}'; // TODO: ex: 'mysql', 'postgresql', 'mongodb'
+  }
+
+  /**
+   * Icône du nœud
+   */
+  getIcon(): string {
+    return '{{ICON_NAME}}'; // TODO: ex: 'Database', 'Server'
+  }
+}
+
+/**
+ * TODO: Ajouter ici des méthodes spécifiques au type de DB
+ * - Transactions
+ * - Prepared statements
+ * - Connection pooling
+ * - Streaming results
+ */
