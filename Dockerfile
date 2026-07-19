@@ -1,40 +1,33 @@
-# Build stage
+# syntax=docker/dockerfile:1
+
+# ---------- Build stage ----------
 FROM node:20-alpine AS builder
 
-# Build SDK first
-WORKDIR /app/package
-COPY package/package*.json ./
-COPY package/tsconfig.json ./
-COPY package/src ./src
-RUN npm ci && npm run build
-
-# Build backend
-WORKDIR /app/docker-instance/server
-COPY docker-instance/server/package*.json ./
-# Install with SDK from local build
-RUN npm ci
-COPY docker-instance/server/prisma ./prisma
-COPY docker-instance/server/src ./src
+# Backend
+WORKDIR /app/server
+COPY server/package.json ./
+RUN npm install
+COPY server/prisma ./prisma
+COPY server/tsconfig.json ./
+COPY server/src ./src
 RUN npx prisma generate
 
-# Build frontend
-WORKDIR /app/docker-instance/web
-COPY docker-instance/web/package*.json ./
+# Frontend (build direct via Vite : pas de typecheck bloquant en conteneur)
+WORKDIR /app/web
+COPY web/package.json ./
 RUN npm install --legacy-peer-deps
-COPY docker-instance/web/ ./
-# Passer l'URL de l'API globale au build
+COPY web/ ./
+# URL de l'API globale passée au build (chemins relatifs par défaut = même origine)
 ARG GLOBAL_API_URL=http://localhost:3000
 ENV VITE_GLOBAL_API_URL=${GLOBAL_API_URL}
-# Forcer VITE_API_URL vide pour utiliser des chemins relatifs (même origine)
 ENV VITE_API_URL=
-RUN npm run build
+RUN npx vite build
 
-# Production stage
+# ---------- Production stage ----------
 FROM node:20-alpine
 WORKDIR /app
 
-# Install embedded database engines so local DBs can run as child processes
-# (no Docker socket required)
+# Moteurs de bases de données embarqués (exécutés en sous-processus, sans socket Docker)
 RUN apk add --no-cache \
     postgresql16 postgresql16-client \
     mariadb mariadb-client \
@@ -42,26 +35,27 @@ RUN apk add --no-cache \
     su-exec \
   && mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
-# Copy backend artifacts (node_modules from builder includes all dependencies)
-COPY --from=builder /app/docker-instance/server/node_modules ./server/node_modules
-COPY --from=builder /app/docker-instance/server/prisma ./server/prisma
-COPY --from=builder /app/docker-instance/server/src ./server/src
+# Artefacts backend (node_modules du builder = toutes les dépendances, dont tsx & prisma)
+COPY --from=builder /app/server/node_modules ./server/node_modules
+COPY --from=builder /app/server/prisma ./server/prisma
+COPY --from=builder /app/server/tsconfig.json ./server/tsconfig.json
+COPY --from=builder /app/server/package.json ./server/package.json
+COPY --from=builder /app/server/src ./server/src
 
-# Copy frontend build output
-COPY --from=builder /app/docker-instance/web/dist ./public
+# Build frontend
+COPY --from=builder /app/web/dist ./public
 
-# Copy startup scripts
-COPY docker-instance/start-container.sh /app/start-container.sh
+# Script de démarrage
+COPY start-container.sh /app/start-container.sh
 RUN chmod +x /app/start-container.sh
 
-# Create data directory
+# Répertoire de données (base locale)
 RUN mkdir -p /app/data
 
-# Environment
 ENV PORT=3000
 ENV NODE_ENV=production
 ENV IN_DOCKER=true
-# DATABASE_URL will be set dynamically by start-container.sh based on INSTANCE_ID
+# DATABASE_URL peut être surchargé au runtime
 ENV DATABASE_URL="file:/app/data/instance.db"
 
 EXPOSE 3000
