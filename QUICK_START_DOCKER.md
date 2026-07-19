@@ -251,9 +251,9 @@ docker ps -a | grep logicai
 
 ## 📚 Documentation complète
 
-- **Repo GitHub**: https://github.com/BouBouw/LogicAI-Docker
+- **Repo GitHub**: https://github.com/LogicAI-SaaS/logicai-instance
 - **Docker Hub**: https://hub.docker.com/r/logicai/logicai
-- **Documentation**: https://github.com/BouBouw/LogicAI-Docker#readme
+- **Documentation**: https://github.com/LogicAI-SaaS/logicai-instance#readme
 
 ---
 

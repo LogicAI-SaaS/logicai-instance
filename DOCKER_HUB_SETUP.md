@@ -6,9 +6,9 @@ Le workflow `.github/workflows/docker-publish.yml` est maintenant en place.
 
 ## 🔄 Mise à jour du repo
 
-Le repo a été renommé de **LogicAI-N8N** → **LogicAI-Docker**
+Le repo a été renommé de **LogicAI-N8N** → **logicai-instance**
 
-Nouveau URL: https://github.com/BouBouw/LogicAI-Docker
+Nouveau URL: https://github.com/LogicAI-SaaS/logicai-instance
 
 ## 📦 Publication automatique sur Docker Hub
 
@@ -30,7 +30,7 @@ Nouveau URL: https://github.com/BouBouw/LogicAI-Docker
    - Cocher "Read, Write, Delete"
 
 3. **Ajouter le secret dans GitHub**:
-   - Aller sur: https://github.com/BouBouw/LogicAI-Docker/settings/secrets/actions
+   - Aller sur: https://github.com/LogicAI-SaaS/logicai-instance/settings/secrets/actions
    - Cliquer "New repository secret"
    - Name: `DOCKERHUB_TOKEN`
    - Value: (votre token Docker Hub)
@@ -118,10 +118,10 @@ La branche `deploy` est encore la branche par défaut sur GitHub.
 
 **Pour la supprimer manuellement:**
 
-1. Aller sur: https://github.com/BouBouw/LogicAI-Docker/settings/branches
+1. Aller sur: https://github.com/LogicAI-SaaS/logicai-instance/settings/branches
 2. Dans "Default branch", changer `deploy` → `main`
 3. Cliquer "Update" et confirmer
-4. Aller sur: https://github.com/BouBouw/LogicAI-Docker/branches
+4. Aller sur: https://github.com/LogicAI-SaaS/logicai-instance/branches
 5. Trouver `deploy` et cliquer la corbeille 🗑️
 
 **Ou via Git après changement:**
@@ -166,5 +166,5 @@ GitHub Actions va créer:
 
 **LogicAI Docker** - Automated builds 🚀
 
-Repo: https://github.com/BouBouw/LogicAI-Docker
+Repo: https://github.com/LogicAI-SaaS/logicai-instance
 Docker Hub: https://hub.docker.com/r/logicai/logicai

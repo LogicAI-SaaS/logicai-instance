@@ -1,54 +1,79 @@
-# LogicAI - Instance Docker
+# LogicAI — Instance (open-source)
 
-Instance LogicAI avec nodes personnalisés et fonctionnalités avancées.
+Instance **LogicAI** auto-hébergeable : un moteur de workflows/automatisation avec
+nodes personnalisés, qui tourne **~90 % en local chez vous**, lancé via **Docker**.
 
-## 🚀 Installation Ultra-Rapide
+La liaison avec l'API [LogicAI](https://github.com/LogicAI-SaaS) est **optionnelle** :
+sans elle, l'instance fonctionne de manière totalement autonome ; avec elle, vous
+débloquez les fonctionnalités cloud (auto-login SSO, gestion multi-instances,
+partage/collaboration) depuis la plateforme LogicAI.
 
-### Option 1: Docker Hub (Recommandé)
+> 🔓 Ce dépôt est **open-source (MIT)**. Clonez, buildez et lancez librement.
+
+---
+
+## 🚀 Installation ultra-rapide
+
+### Option 1 — Docker Hub (recommandé)
 
 ```bash
 docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
 ```
 
-C'est tout ! Ouvrez: http://localhost:5678
+C'est tout ! Ouvrez : http://localhost:5678
 
-### Option 2: Build local
+### Option 2 — Build local depuis les sources
 
 ```bash
-git clone https://github.com/BouBouw/LogicAI-Docker.git
-cd LogicAI-Docker
+git clone https://github.com/LogicAI-SaaS/logicai-instance.git
+cd logicai-instance
 docker build -t logicai:local .
 docker run -d --name logicai -p 5678:3000 logicai:local
 ```
 
-### Option 3: Docker Compose
+### Option 3 — Docker Compose
 
 ```bash
-git clone https://github.com/BouBouw/LogicAI-Docker.git
-cd LogicAI-Docker
-docker-compose up -d
+git clone https://github.com/LogicAI-SaaS/logicai-instance.git
+cd logicai-instance
+docker compose up -d
 ```
 
 ---
 
 ## 📋 Fonctionnalités
 
-### Nodes Personnalisés
+### Nodes personnalisés
 
-- **AI/LLM**: OpenAI, Anthropic, Gemini, Ollama, OpenRouter
-- **Automatisation**: HTTP Request, Rate Limiter Bypass, No-Code Browser
-- **Data**: MySQL, SQLite, Firebase, S3
-- **Social**: Twitch, YouTube, Snapchat, Kick
-- **Utilitaires**: Text Formatter, UUID, Date, Loop, If conditions
+- **IA / LLM** : OpenAI, Anthropic, Gemini, Ollama, OpenRouter
+- **Automatisation** : HTTP Request, navigateur no-code, triggers (webhook, cron…)
+- **Data** : PostgreSQL, MySQL, SQLite, Redis, MongoDB, S3
+- **Intégrations** : Slack, Discord, Telegram, GitHub, Notion, Stripe, Google…
+- **Utilitaires** : formatage de texte, UUID, dates, boucles, conditions, merge
 
-### Fonctionnalités LogicAI
+### Cœur LogicAI
 
-- ✅ Système d'authentification JWT
-- ✅ Collaboration en temps réel (WebSocket)
-- ✅ Gestion d'instances multiples (local + cloud)
+- ✅ Authentification JWT
+- ✅ Collaboration temps réel (WebSocket)
 - ✅ Base de données locale intégrée
-- ✅ Système de formulaires
-- ✅ Support multilingue (20+ langues)
+- ✅ Système de formulaires & webhooks
+- ✅ Support multilingue
+
+---
+
+## 🔗 Liaison avec l'API LogicAI (optionnelle)
+
+Quand l'instance est provisionnée par la plateforme LogicAI, celle-ci injecte un
+**secret JWT propre à l'instance** (`JWT_SECRET`) permettant l'auto-login SSO et la
+gestion à distance. En usage 100 % local, laissez la valeur par défaut ou définissez
+la vôtre — aucune connexion externe n'est requise.
+
+```bash
+docker run -d --name logicai -p 5678:3000 \
+  -e JWT_SECRET="votre-secret-unique" \
+  -e INSTANCE_ID="mon-instance" \
+  logicai/logicai:latest
+```
 
 ---
 
@@ -56,89 +81,63 @@ docker-compose up -d
 
 ### Images disponibles
 
-- `logicai/logicai:latest` - Dernière version stable
-- `logicai/logicai:1.0.0` - Version spécifique
+- `logicai/logicai:latest` — dernière version stable
+- `logicai/logicai:1.0.0` — version spécifique
 
 ### Commandes de base
 
 ```bash
-# Lancer une instance
-docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
-
-# Avec volumes persistants
+# Lancer avec un volume persistant (recommandé)
 docker run -d --name logicai -p 5678:3000 -v logicai-data:/app/data logicai/logicai:latest
 
-# Voir les logs
-docker logs -f logicai
-
-# Arrêter
-docker stop logicai
-
-# Démarrer
-docker start logicai
-
-# Supprimer
-docker stop logicai && docker rm logicai
+docker logs -f logicai      # logs
+docker stop logicai         # arrêter
+docker start logicai        # redémarrer
+docker rm -f logicai        # supprimer
 ```
 
 ### Docker Compose
 
 ```bash
-# Démarrer
-docker-compose up -d
-
-# Arrêter
-docker-compose down
-
-# Logs
-docker-compose logs -f
-
-# Rebuild
-docker-compose up -d --build
+docker compose up -d        # démarrer
+docker compose logs -f      # logs
+docker compose down         # arrêter
+docker compose up -d --build  # rebuild
 ```
 
 ---
 
 ## 🔧 Configuration
 
-### Variables d'environnement
+| Variable        | Description                                   | Défaut                    |
+|-----------------|-----------------------------------------------|---------------------------|
+| `PORT`          | Port interne du serveur                       | `3000`                    |
+| `JWT_SECRET`    | Secret JWT (injecté par la plateforme si liée)| *(défaut de dév)*         |
+| `DATABASE_URL`  | Base de données (SQLite locale par défaut)    | `file:/app/data/instance.db` |
+| `INSTANCE_ID`   | Identifiant de l'instance                     | —                         |
 
-```bash
-docker run -d \
-  --name logicai \
-  -p 5678:3000 \
-  -e INSTANCE_ID=mon-instance \
-  -e DATABASE_URL="postgresql://user:pass@host:5432/db" \
-  logicai/logicai:latest
-```
-
-### Configuration avancée
-
-Voir [DOCKER_HUB_SETUP.md](./DOCKER_HUB_SETUP.md) pour:
-- Publication automatique sur Docker Hub
-- Multi-architecture (amd64, arm64)
-- Versions sémantiques
-- GitHub Actions
+Voir aussi :
+- [QUICK_START_DOCKER.md](./QUICK_START_DOCKER.md) — démarrage rapide & multi-instances
+- [DOCKER_HUB_SETUP.md](./DOCKER_HUB_SETUP.md) — publication d'image, multi-arch, CI
 
 ---
 
-## 📚 Documentation
+## 📚 Liens
 
-- **Quick Start**: [QUICK_START_DOCKER.md](./QUICK_START_DOCKER.md)
-- **Docker Hub Setup**: [DOCKER_HUB_SETUP.md](./DOCKER_HUB_SETUP.md)
-- **Docker Hub**: https://hub.docker.com/r/logicai/logicai
-- **GitHub**: https://github.com/BouBouw/LogicAI-Docker
+- **Docker Hub** : https://hub.docker.com/r/logicai/logicai
+- **Dépôt** : https://github.com/LogicAI-SaaS/logicai-instance
+- **Organisation LogicAI** : https://github.com/LogicAI-SaaS
 
 ---
 
 ## 🤝 Contribution
 
-Contributions welcome! Fork le projet et submit une PR.
+Les contributions sont bienvenues — forkez le projet et proposez une PR.
 
 ## 📄 Licence
 
-MIT License
+Distribué sous licence **MIT**. Voir [LICENSE](./LICENSE).
 
 ---
 
-**LogicAI** - Automation Platform for Everyone 🚀
+**LogicAI** — l'automatisation pour tout le monde 🚀
