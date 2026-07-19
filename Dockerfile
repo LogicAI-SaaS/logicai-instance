@@ -3,6 +3,9 @@
 # ---------- Build stage ----------
 FROM node:20-alpine AS builder
 
+# Outils de compilation pour les modules natifs (ex: better-sqlite3 sur musl)
+RUN apk add --no-cache python3 make g++
+
 # Backend
 WORKDIR /app/server
 COPY server/package.json ./
