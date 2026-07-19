@@ -16,8 +16,8 @@ Nouveau URL: https://github.com/BouBouw/LogicAI-Docker
 
 À chaque push sur `main`, GitHub Actions:
 1. Build l'image Docker `logicai`
-2. Push sur Docker Hub: `bouboom/logicai:latest`
-3. Crée des tags par version (ex: `v1.0.0` → `bouboom/logicai:1.0.0`)
+2. Push sur Docker Hub: `logicai/logicai:latest`
+3. Crée des tags par version (ex: `v1.0.0` → `logicai/logicai:1.0.0`)
 4. Support multi-architecture (amd64, arm64)
 
 ### Configuration requise
@@ -38,7 +38,7 @@ Nouveau URL: https://github.com/BouBouw/LogicAI-Docker
 4. **Vérifier le username** dans `.github/workflows/docker-publish.yml`:
    ```yaml
    env:
-     DOCKERHUB_USERNAME: bouboom  # ← Changez si nécessaire
+     DOCKERHUB_USERNAME: logicai  # ← Changez si nécessaire
    ```
 
 ## 🚀 Utilisation pour les utilisateurs
@@ -46,7 +46,7 @@ Nouveau URL: https://github.com/BouBouw/LogicAI-Docker
 ### Installation en une commande :
 
 ```bash
-docker pull bouboom/logicai:latest
+docker pull logicai/logicai:latest
 ```
 
 ### Lancer une instance :
@@ -56,7 +56,7 @@ docker run -d \
   --name logicai-instance \
   -p 5678:3000 \
   -e INSTANCE_ID=test123 \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ### Avec volumes persistants :
@@ -67,7 +67,7 @@ docker run -d \
   -p 5678:3000 \
   -e INSTANCE_ID=test123 \
   -v logicai-data:/app/data \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ### Avec docker-compose :
@@ -77,7 +77,7 @@ version: '3.8'
 
 services:
   logicai:
-    image: bouboom/logicai:latest
+    image: logicai/logicai:latest
     container_name: logicai-instance
     ports:
       - "5678:3000"
@@ -95,10 +95,10 @@ volumes:
 ## 🏷️ Tags disponibles
 
 Une fois publié, vous aurez:
-- `bouboom/logicai:latest` - Dernière version stable
-- `bouboom/logicai:1.0.0` - Version spécifique
-- `bouboom/logicai:1.0` - Version mineure
-- `bouboom/logicai:1` - Version majeure
+- `logicai/logicai:latest` - Dernière version stable
+- `logicai/logicai:1.0.0` - Version spécifique
+- `logicai/logicai:1.0` - Version mineure
+- `logicai/logicai:1` - Version majeure
 
 ## 🔨 Build manuel local
 
@@ -157,14 +157,14 @@ git push origin v1.0.0
 ```
 
 GitHub Actions va créer:
-- `bouboom/logicai:1.0.0`
-- `bouboom/logicai:1.0`
-- `bouboom/logicai:1`
-- `bouboom/logicai:latest`
+- `logicai/logicai:1.0.0`
+- `logicai/logicai:1.0`
+- `logicai/logicai:1`
+- `logicai/logicai:latest`
 
 ---
 
 **LogicAI Docker** - Automated builds 🚀
 
 Repo: https://github.com/BouBouw/LogicAI-Docker
-Docker Hub: https://hub.docker.com/r/bouboom/logicai
+Docker Hub: https://hub.docker.com/r/logicai/logicai

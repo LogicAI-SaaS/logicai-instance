@@ -8,7 +8,7 @@ Installation rapide de LogicAI en une seule commande Docker !
 docker run -d \
   --name logicai \
   -p 5678:3000 \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 C'est tout ! Attendez quelques secondes et ouvrez: http://localhost:5678
@@ -20,7 +20,7 @@ C'est tout ! Attendez quelques secondes et ouvrez: http://localhost:5678
 ### 1. Instance simple (test)
 
 ```bash
-docker run -d --name logicai -p 5678:3000 bouboom/logicai:latest
+docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
 ```
 
 ### 2. Instance avec données persistantes
@@ -30,7 +30,7 @@ docker run -d \
   --name logicai \
   -p 5678:3000 \
   -v logicai-data:/app/data \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ### 3. Instance avec identifiant custom
@@ -40,7 +40,7 @@ docker run -d \
   --name logicai \
   -p 5678:3000 \
   -e INSTANCE_ID=mon-instance \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ### 4. Instance avec base de données externe
@@ -50,20 +50,20 @@ docker run -d \
   --name logicai \
   -p 5678:3000 \
   -e DATABASE_URL="postgresql://user:pass@host:5432/db" \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ### 5. Plusieurs instances sur le même serveur
 
 ```bash
 # Instance 1
-docker run -d --name logicai-1 -p 5678:3000 bouboom/logicai:latest
+docker run -d --name logicai-1 -p 5678:3000 logicai/logicai:latest
 
 # Instance 2
-docker run -d --name logicai-2 -p 5679:3000 bouboom/logicai:latest
+docker run -d --name logicai-2 -p 5679:3000 logicai/logicai:latest
 
 # Instance 3
-docker run -d --name logicai-3 -p 5680:3000 bouboom/logicai:latest
+docker run -d --name logicai-3 -p 5680:3000 logicai/logicai:latest
 ```
 
 ---
@@ -77,7 +77,7 @@ version: '3.8'
 
 services:
   logicai:
-    image: bouboom/logicai:latest
+    image: logicai/logicai:latest
     container_name: logicai
     ports:
       - "5678:3000"
@@ -180,23 +180,23 @@ docker exec -it logicai sh
 ### Mettre à jour vers la dernière version
 
 ```bash
-docker pull bouboom/logicai:latest
+docker pull logicai/logicai:latest
 docker stop logicai
 docker rm logicai
-docker run -d --name logicai -p 5678:3000 bouboom/logicai:latest
+docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
 ```
 
 ### Avec volumes (données préservées)
 
 ```bash
-docker pull bouboom/logicai:latest
+docker pull logicai/logicai:latest
 docker stop logicai
 docker rm logicai
 docker run -d \
   --name logicai \
   -p 5678:3000 \
   -v logicai-data:/app/data \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ---
@@ -227,7 +227,7 @@ Une fois lancé, accédez à:
 
 ```bash
 # Changer le port
-docker run -d --name logicai -p 5679:3000 bouboom/logicai:latest
+docker run -d --name logicai -p 5679:3000 logicai/logicai:latest
 ```
 
 ### Le conteneur ne démarre pas
@@ -252,7 +252,7 @@ docker ps -a | grep logicai
 ## 📚 Documentation complète
 
 - **Repo GitHub**: https://github.com/BouBouw/LogicAI-Docker
-- **Docker Hub**: https://hub.docker.com/r/bouboom/logicai
+- **Docker Hub**: https://hub.docker.com/r/logicai/logicai
 - **Documentation**: https://github.com/BouBouw/LogicAI-Docker#readme
 
 ---
@@ -262,7 +262,7 @@ docker ps -a | grep logicai
 En une seule commande, vous avez LogicAI opérationnel !
 
 ```bash
-docker run -d --name logicai -p 5678:3000 bouboom/logicai:latest
+docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
 ```
 
 **LogicAI** - Automation Platform for Everyone 🚀

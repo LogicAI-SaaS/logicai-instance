@@ -7,7 +7,7 @@ Instance LogicAI avec nodes personnalisés et fonctionnalités avancées.
 ### Option 1: Docker Hub (Recommandé)
 
 ```bash
-docker run -d --name logicai -p 5678:3000 bouboom/logicai:latest
+docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
 ```
 
 C'est tout ! Ouvrez: http://localhost:5678
@@ -56,17 +56,17 @@ docker-compose up -d
 
 ### Images disponibles
 
-- `bouboom/logicai:latest` - Dernière version stable
-- `bouboom/logicai:1.0.0` - Version spécifique
+- `logicai/logicai:latest` - Dernière version stable
+- `logicai/logicai:1.0.0` - Version spécifique
 
 ### Commandes de base
 
 ```bash
 # Lancer une instance
-docker run -d --name logicai -p 5678:3000 bouboom/logicai:latest
+docker run -d --name logicai -p 5678:3000 logicai/logicai:latest
 
 # Avec volumes persistants
-docker run -d --name logicai -p 5678:3000 -v logicai-data:/app/data bouboom/logicai:latest
+docker run -d --name logicai -p 5678:3000 -v logicai-data:/app/data logicai/logicai:latest
 
 # Voir les logs
 docker logs -f logicai
@@ -109,7 +109,7 @@ docker run -d \
   -p 5678:3000 \
   -e INSTANCE_ID=mon-instance \
   -e DATABASE_URL="postgresql://user:pass@host:5432/db" \
-  bouboom/logicai:latest
+  logicai/logicai:latest
 ```
 
 ### Configuration avancée
@@ -126,7 +126,7 @@ Voir [DOCKER_HUB_SETUP.md](./DOCKER_HUB_SETUP.md) pour:
 
 - **Quick Start**: [QUICK_START_DOCKER.md](./QUICK_START_DOCKER.md)
 - **Docker Hub Setup**: [DOCKER_HUB_SETUP.md](./DOCKER_HUB_SETUP.md)
-- **Docker Hub**: https://hub.docker.com/r/bouboom/logicai
+- **Docker Hub**: https://hub.docker.com/r/logicai/logicai
 - **GitHub**: https://github.com/BouBouw/LogicAI-Docker
 
 ---
